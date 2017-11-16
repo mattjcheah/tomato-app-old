@@ -1,0 +1,27 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+
+  <header class="header">
+    <h1>Pomodoro Clock</h1>
+  </header>
+
+  <section class="main">
+    <div class="break-time">
+        <h3>Break Length</h3>
+        <em class="minus no-select" id="b-minus">&minus;</em>
+        <p class="break-len">5</p>
+        <em class="plus no-select" id="b-plus">&plus;</em>
+    </div><!--
+    --><div class="pomo-time">
+        <h3>Pomodoro Length</h3>
+        <em class="minus no-select" id="p-minus">&minus;</em>
+        <p class="pomo-len">25</p>
+        <em class="plus no-select" id="p-plus">&plus;</em>
+    </div>
+    <div class="timer">
+        <p class="no-select">25:00</p>
+    </div>
+  </section>
+
+{% endblock %}
