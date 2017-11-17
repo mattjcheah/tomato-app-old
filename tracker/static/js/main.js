@@ -120,4 +120,4 @@ $(document).ready(function() {
           showTimer();
       }
   }, 1000)
-// });
+});
