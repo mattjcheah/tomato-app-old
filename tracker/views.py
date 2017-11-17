@@ -1,4 +1,5 @@
 from .models import Deadline
+from .forms import CountdownForm
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
@@ -11,7 +12,19 @@ def index(request):
         return render(request, 'index.html')
     return render(request, 'tracker/tracker.html')
 
+def countdown(request):
+    if request.method == 'POST':
+        form = CountdownForm(request.POST)
 
-class CountdownListView(generic.ListView):
-    model = Deadline
-    template_name = 'tracker/countdown.html'
+        if form.is_valid():
+            title = form.cleaned_data['title']
+            due = form.cleaned_data['due']
+            Deadline.objects.create(title=title, due=due)
+    else:
+        form = CountdownForm()
+    
+    return render(
+        request, 
+        'tracker/countdown.html', 
+        {'deadline_list': Deadline.objects.all(), 'form': form}
+    )
