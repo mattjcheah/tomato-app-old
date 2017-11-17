@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+from datetime import date
+
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -23,3 +25,12 @@ class Tomato(models.Model):
     duration = models.DurationField()
     task = models.CharField(max_length=50)
     day = models.DateField()
+
+
+class Deadline(models.Model):
+    title = models.CharField(max_length=50)
+    due = models.DateField()
+
+    def days_left(self):
+        delta = self.due - date.today()
+        return delta.days
