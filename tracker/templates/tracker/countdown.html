@@ -1,0 +1,13 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+
+  <ul>
+    {% for deadline in deadline_list %}
+      <li>
+        <p>{{ deadline.title }} - {{ deadline.days_left }}</p>
+      </li>
+    {% endfor %}
+  </ul>
+
+{% endblock %}
