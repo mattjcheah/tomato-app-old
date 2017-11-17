@@ -34,3 +34,6 @@ class Deadline(models.Model):
     def days_left(self):
         delta = self.due - date.today()
         return delta.days
+
+    def __str__(self):
+        return self.title
