@@ -19,12 +19,15 @@ def countdown(request):
         if form.is_valid():
             title = form.cleaned_data['title']
             due = form.cleaned_data['due']
-            Deadline.objects.create(title=title, due=due)
+            user = request.user.profile
+            Deadline.objects.create(title=title, due=due, user=user)
+            
+        form = CountdownForm()
     else:
         form = CountdownForm()
     
     return render(
         request, 
         'tracker/countdown.html', 
-        {'deadline_list': Deadline.objects.all(), 'form': form}
+        {'deadline_list': Deadline.objects.filter(user__exact=request.user.profile), 'form': form}
     )

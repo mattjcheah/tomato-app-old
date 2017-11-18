@@ -10,6 +10,9 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(max_length=500, blank=True)
 
+    def __str__(self):
+        return self.user.username
+
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
@@ -30,6 +33,10 @@ class Tomato(models.Model):
 class Deadline(models.Model):
     title = models.CharField(max_length=50)
     due = models.DateField()
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE)
+
+    class Meta:
+        ordering=['due']
 
     def days_left(self):
         delta = self.due - date.today()
